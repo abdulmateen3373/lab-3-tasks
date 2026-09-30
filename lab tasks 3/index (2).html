@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEEE Paper Template</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body{ background:#6b6b6b; font-family:"Times New Roman",Times,serif; }
+  .page{ max-width:8.5in; min-height:11in; margin:30px auto; padding:0.75in 0.625in 1in; background:#fff; box-shadow:0 10px 30px rgba(0,0,0,.35); color:#000; }
+  .title{ font-size:24pt; font-weight:400; line-height:1.25; }
+  .author-affil{ font-size:10pt; font-style:italic; line-height:1.35; }
+  .columns{ column-count:2; column-gap:0.28in; font-size:10pt; line-height:1.32; text-align:justify; }
+  .columns p{ margin:0 0 8pt; text-indent:12pt; }
+  .abstract, .index-terms{ text-indent:0; }
+  .lead{ font-weight:700; font-style:italic; }
+  .sec{ font-size:10pt; font-variant:small-caps; text-align:center; font-weight:700; margin:14pt 0 6pt; break-after:avoid; }
+  .subsec{ font-size:10pt; font-style:italic; font-weight:700; text-align:left; margin:10pt 0 4pt; break-after:avoid; }
+  .fig-box{ background:#e8e8e8; border:1px solid #999; height:1.4in; display:flex; align-items:center; justify-content:center; font-size:9pt; color:#666; font-style:italic; }
+  .fig-caption{ font-size:9pt; text-indent:0; margin-top:6pt; text-align:left; }
+  .table-wrap{ column-span:all; break-inside:avoid; margin:12pt 0; text-align:center; }
+  .table-caption{ font-size:9pt; font-variant:small-caps; margin:0 0 6pt; }
+  table{ border-collapse:collapse; margin:0 auto; font-size:9pt; }
+  th,td{ border-top:1px solid #000; border-bottom:1px solid #000; padding:5pt 12pt; }
+  thead th{ border-top:2px solid #000; }
+  tbody tr:last-child td{ border-bottom:2px solid #000; }
+  .references{ font-size:9pt; text-indent:0; margin:0; padding-left:0; list-style:none; counter-reset:ref; }
+  .references li{ counter-increment:ref; position:relative; padding-left:18pt; margin-bottom:6pt; line-height:1.3; }
+  .references li::before{ content:"[" counter(ref) "]"; position:absolute; left:0; }
+  @media print{ body{background:#fff;} .page{margin:0; box-shadow:none; max-width:none; min-height:0;} @page{size:letter; margin:0;} }
+  @media (max-width:700px){ .page{padding:0.5in 0.35in;} .columns{column-count:1;} }
+</style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- ===================== TITLE + AUTHORS ===================== -->
+    <header class="text-center mb-4">
+      <h1 class="title mb-3">Applying Convolutional Neural Networks for Real-Time Object Detection</h1>
+
+      <div class="d-flex justify-content-center flex-wrap gap-4">
+        <div>
+          <p class="mb-1" style="font-size:11pt;">First Author</p>
+          <p class="author-affil mb-0">Department of Computer Science<br>
+          Air University<br>
+          City, Country<br>
+          author1@email.com</p>
+        </div>
+        <div>
+          <p class="mb-1" style="font-size:11pt;">Second Author</p>
+          <p class="author-affil mb-0">Department of Computer Science<br>
+          Comsats University<br>
+          City, Country<br>
+          author2@email.com</p>
+        </div>
+        <div>
+          <p class="mb-1" style="font-size:11pt;">Third Author</p>
+          <p class="author-affil mb-0">Department of Computer Science<br>
+          Fast University<br>
+          City, Country<br>
+          author3@email.com</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================== TWO-COLUMN BODY ===================== -->
+    <div class="columns">
+
+      <p class="abstract">
+        <span class="lead">Abstract—</span>Object detection remains a core problem
+        in computer vision, requiring a model to simultaneously localize and
+        classify multiple objects within a single image. This paper examines
+        the application of convolutional neural networks (CNNs) to real-time
+        object detection, with emphasis on the trade-off between inference
+        speed and detection accuracy. We implement and evaluate a lightweight
+        CNN architecture on a standard benchmark dataset, achieving competitive
+        mean average precision (mAP) while maintaining a frame rate suitable
+        for real-time deployment. Our results suggest that architectural
+        pruning combined with anchor-free detection heads offers a favorable
+        balance for edge-device deployment.
+      </p>
+
+      <p class="index-terms">
+        <span class="lead">Index Terms—</span>convolutional neural networks,
+        object detection, real-time inference, computer vision, edge deployment.
+      </p>
+
+      <h2 class="sec">I. Introduction</h2>
+      <p>
+        Object detection sits at the intersection of image classification and
+        localization, and has become foundational to applications ranging from
+        autonomous navigation to automated visual inspection. Early approaches
+        relied on hand-crafted features and sliding-window classifiers, which
+        proved computationally expensive and poorly suited to real-time use.
+        The introduction of region-based convolutional networks marked a shift
+        toward learned feature representations, substantially improving
+        detection accuracy at the cost of inference speed.
+      </p>
+      <p>
+        This paper investigates whether a compact CNN, combined with an
+        anchor-free detection head, can retain acceptable accuracy while
+        meeting the latency requirements of real-time systems. Section II
+        reviews related work, Section III describes our methodology, Section
+        IV presents results, and Section V concludes with directions for
+        future work.
+      </p>
+
+      <div class="figure">
+        <div class="fig-box">Figure Placeholder</div>
+        <p class="fig-caption">
+          Fig. 1. Overview of the proposed detection pipeline, from input
+          image to bounding-box output.
+        </p>
+      </div>
+
+      <h2 class="sec">II. Related Work</h2>
+      <p>
+        Two-stage detectors such as Faster R-CNN [1] achieve high accuracy by
+        first generating region proposals before classifying each candidate
+        region. While effective, this design introduces latency that limits
+        real-time applicability. Single-stage detectors, including the YOLO
+        family [2] and SSD [3], instead predict bounding boxes and class
+        probabilities directly from the full image in a single pass, trading
+        a modest reduction in accuracy for a substantial gain in speed.
+      </p>
+      <p>
+        More recent work has explored anchor-free formulations [4], removing
+        the need for hand-tuned anchor boxes and simplifying the training
+        pipeline. Our approach builds on this direction, targeting deployment
+        on resource-constrained edge devices.
+      </p>
+
+      <h2 class="sec">III. Methodology</h2>
+
+      <h3 class="subsec">A. Dataset</h3>
+      <p>
+        We evaluate our approach on a standard object detection benchmark
+        consisting of labeled images across multiple object categories. The
+        dataset is split into training, validation, and test partitions
+        following the conventional 70/15/15 ratio.
+      </p>
+
+      <h3 class="subsec">B. Model Architecture</h3>
+      <p>
+        The backbone network consists of a lightweight convolutional stack
+        with depthwise separable convolutions to reduce parameter count. An
+        anchor-free detection head predicts object centers and bounding-box
+        dimensions directly, removing the need for predefined anchor
+        configurations.
+      </p>
+
+      <div class="table-wrap">
+        <p class="table-caption">TABLE I<br>Model Performance Comparison</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>mAP (%)</th>
+              <th>FPS</th>
+              <th>Params (M)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Faster R-CNN [1]</td>
+              <td>42.1</td>
+              <td>7</td>
+              <td>41.8</td>
+            </tr>
+            <tr>
+              <td>YOLOv3 [2]</td>
+              <td>36.7</td>
+              <td>35</td>
+              <td>61.9</td>
+            </tr>
+            <tr>
+              <td>SSD [3]</td>
+              <td>31.2</td>
+              <td>46</td>
+              <td>26.3</td>
+            </tr>
+            <tr>
+              <td><strong>Proposed</strong></td>
+              <td><strong>38.4</strong></td>
+              <td><strong>52</strong></td>
+              <td><strong>9.7</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="sec">IV. Results</h2>
+      <p>
+        As shown in Table I, the proposed model achieves 38.4% mAP at 52
+        frames per second, outperforming SSD [3] in accuracy while
+        maintaining a comparable frame rate. Compared to YOLOv3 [2], our
+        model achieves higher throughput with roughly one-sixth the
+        parameter count, supporting its suitability for edge deployment
+        where memory and compute are constrained.
+      </p>
+      <p>
+        Qualitative inspection of detection outputs shows consistent
+        performance on medium and large objects, with a modest drop in
+        recall for small objects — a limitation shared by most single-stage
+        detectors and a candidate for future refinement.
+      </p>
+
+      <h2 class="sec">V. Conclusion</h2>
+      <p>
+        We presented a lightweight, anchor-free CNN architecture for
+        real-time object detection and demonstrated a favorable accuracy–speed
+        trade-off relative to established baselines. Future work will explore
+        knowledge distillation from larger teacher networks to further close
+        the accuracy gap without sacrificing inference speed.
+      </p>
+
+      <h2 class="sec" style="margin-top:16pt;">References</h2>
+      <ol class="references">
+        <li>S. Ren, K. He, R. Girshick, and J. Sun, "Faster R-CNN: Towards
+          real-time object detection with region proposal networks," in
+          <em>Proc. Adv. Neural Inf. Process. Syst.</em>, 2015, pp. 91–99.</li>
+        <li>J. Redmon and A. Farhadi, "YOLOv3: An incremental improvement,"
+          <em>arXiv preprint arXiv:1804.02767</em>, 2018.</li>
+        <li>W. Liu et al., "SSD: Single shot multibox detector," in
+          <em>Proc. Eur. Conf. Comput. Vis.</em>, 2016, pp. 21–37.</li>
+        <li>Z. Tian, C. Shen, H. Chen, and T. He, "FCOS: Fully convolutional
+          one-stage object detection," in <em>Proc. IEEE Int. Conf. Comput.
+          Vis.</em>, 2019, pp. 9627–9636.</li>
+      </ol>
+
+    </div>
+  </div>
+
+</body>
+</html>
